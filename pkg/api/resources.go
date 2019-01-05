@@ -72,26 +72,39 @@ type User struct {
 type Stats struct {
 	Bucket      string `json:"bucket"`
 	BucketQuota struct {
+		CheckRAW   bool `json:"check_on_raw"`
 		Enabled    bool `json:"enabled"`
 		MaxObjects int  `json:"max_objects"`
+		MaxSize    int  `json:"max_size"`
 		MaxSizeKb  int  `json:"max_size_kb"`
 	} `json:"bucket_quota"`
-	ID        string `json:"id"`
-	IndexPool string `json:"index_pool"`
-	Marker    string `json:"marker"`
-	MasterVer string `json:"master_ver"`
-	MaxMarker string `json:"max_marker"`
-	Mtime     string `json:"mtime"`
-	Owner     string `json:"owner"`
-	Pool      string `json:"pool"`
-	Usage     struct {
+	CreateTime   string `json:"creation_time"`
+	ExpPlacement struct {
+		ExtraPool string `json:"data_extra_pool"`
+		DataPool  string `json:"data_pool"`
+		IndexPool string `json:"index_pool"`
+	} `json:"explicit_placement"`
+	ID            string `json:"id"`
+	IndexType     string `json:"index_type"`
+	Marker        string `json:"marker"`
+	MasterVer     string `json:"master_ver"`
+	MaxMarker     string `json:"max_marker"`
+	Mtime         string `json:"mtime"`
+	Owner         string `json:"owner"`
+	PlacementRule string `json:"placement_rule"`
+	Usage         struct {
 		RgwMain struct {
 			NumObjects   int `json:"num_objects"`
+			Size         int `json:"size"`
+			SizeActual   int `json:"size_actual"`
 			SizeKb       int `json:"size_kb"`
 			SizeKbActual int `json:"size_kb_actual"`
+			SizeKbUtil   int `json:"size_kb_utilized"`
+			SizeUtil     int `json:"size_utilized"`
 		} `json:"rgw.main"`
 	} `json:"usage"`
-	Ver string `json:"ver"`
+	Ver       string `json:"ver"`
+	ZoneGroup string `json:"zonegroup"`
 }
 
 type Bucket struct {
