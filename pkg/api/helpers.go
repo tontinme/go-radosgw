@@ -79,20 +79,17 @@ func (api *API) DeleteUsage(conf UsageConfig) error {
 
 // GetUser gets user information. If no user is specified returns the list of all users along with suspension information
 //
-// ** If no user is specified returns the list ... ** Don't works for me
-//
 // !! caps: users=read !!
 //
 // @uid
 //
-func (api *API) GetUser(uid ...string) (*User, error) {
+func (api *API) GetUser(uid string) (*User, error) {
 	ret := &User{}
 	values := url.Values{}
 
 	values.Add("format", "json")
-	if len(uid) != 0 {
-		values.Add("uid", uid[0])
-	}
+	values.Add("uid", uid)
+
 	body, _, err := api.call("GET", "/user", values, true)
 	if err != nil {
 		return nil, err
@@ -140,6 +137,29 @@ func (api *API) GetUsers() ([]*User, error) {
 			return ret, err
 		}
 	}
+	return ret, nil
+}
+
+// GetUsers fetches users uid list
+//
+// !! caps: metadata=read !!
+//
+func (api *API) GetUsers() ([]string, error) {
+	ret := make([]string, 0)
+	values := url.Values{}
+
+	values.Add("format", "json")
+
+	body, _, err := api.call("GET", "/metadata/user", values, true)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if err = json.Unmarshal(body, &ret); err != nil {
+		return nil, err
+	}
+
 	return ret, nil
 }
 
