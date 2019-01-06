@@ -58,15 +58,15 @@ type KeysDefinition []struct {
 
 // User represents the response of user requests
 type User struct {
-	Caps        []Capability   `json:"caps"`
+	UserID      string         `json:"user_id"`
 	DisplayName string         `json:"display_name"`
 	Email       string         `json:"email"`
-	Keys        KeysDefinition `json:"keys"`
+	Suspended   int            `json:"suspended"`
 	MaxBuckets  int            `json:"max_buckets"`
 	Subusers    SubUsers       `json:"subusers"`
-	Suspended   int            `json:"suspended"`
+	Keys        KeysDefinition `json:"keys"`
 	SwiftKeys   KeysDefinition `json:"swift_keys"`
-	UserID      string         `json:"user_id"`
+	Caps        []Capability   `json:"caps"`
 }
 
 type Stats struct {
@@ -152,13 +152,17 @@ type Policy struct {
 type Quotas struct {
 	BucketQuota struct {
 		Enabled    bool `json:"enabled"`
-		MaxObjects int  `json:"max_objects"`
+		CheckRAW   bool `json:"check_on_raw"`
+		MaxSize    int  `json:"max_size"`
 		MaxSizeKb  int  `json:"max_size_kb"`
+		MaxObjects int  `json:"max_objects"`
 	} `json:"bucket_quota"`
 	UserQuota struct {
 		Enabled    bool `json:"enabled"`
-		MaxObjects int  `json:"max_objects"`
+		CheckRAW   bool `json:"check_on_raw"`
+		MaxSize    int  `json:"max_size"`
 		MaxSizeKb  int  `json:"max_size_kb"`
+		MaxObjects int  `json:"max_objects"`
 	} `json:"user_quota"`
 }
 
