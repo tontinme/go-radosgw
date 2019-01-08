@@ -17,7 +17,7 @@ type Entry struct {
 		Epoch int    `json:"epoch"`
 		Time  string `json:"time"`
 	} `json:"buckets"`
-	Owner string `json:"owner"`
+	Owner string `json:"user"`
 }
 
 type Summary struct {
@@ -97,10 +97,10 @@ type Stats struct {
 			NumObjects   int `json:"num_objects"`
 			Size         int `json:"size"`
 			SizeActual   int `json:"size_actual"`
+			SizeUtil     int `json:"size_utilized"`
 			SizeKb       int `json:"size_kb"`
 			SizeKbActual int `json:"size_kb_actual"`
 			SizeKbUtil   int `json:"size_kb_utilized"`
-			SizeUtil     int `json:"size_utilized"`
 		} `json:"rgw.main"`
 	} `json:"usage"`
 	Ver       string `json:"ver"`
